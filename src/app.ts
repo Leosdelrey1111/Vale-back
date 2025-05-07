@@ -1,9 +1,11 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+
 import materialRoutes from "./routes/material.routes";
 import usuarioRoutes from "./routes/usuario.routes";
 import prestamoRoutes from "./routes/prestamo.routes";
+import prestamoLectorRoutes from "./routes/prestamolectores.routes"; // 👈 Nueva importación
 import authRoutes from "./routes/auth.routes";
 import autorRoutes from "./routes/autor.routes";
 import categoriaRoutes from "./routes/categoria.routes";
@@ -32,6 +34,7 @@ class App {
     this.app.use("/api/materiales", materialRoutes);
     this.app.use("/api/usuarios", usuarioRoutes);
     this.app.use("/api/prestamos", prestamoRoutes);
+    this.app.use("/api", prestamoLectorRoutes); // 👈 Aquí se incluye /api/mis-prestamos/:usuarioId
   }
 
   public static getApp(): express.Application {

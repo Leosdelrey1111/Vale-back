@@ -12,6 +12,7 @@ export interface IUsuario extends Document {
   fechaRegistro: Date;
   estado: "activo" | "inactivo" | "suspendido";
   multaAcumulada: number;
+  rol: "lector" | "bibliotecario";
 }
 
 export interface IMaterial extends Document {

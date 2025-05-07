@@ -15,7 +15,14 @@ const UsuarioSchema = new Schema<IUsuario>({
     enum: ["activo", "inactivo", "suspendido"],
     default: "activo",
   },
+  
   multaAcumulada: { type: Number, default: 0 },
+  rol: {
+    type: String,
+    enum: ["lector", "bibliotecario"],
+    default: "lector",
+    required: true
+  }
 });
 
 export const Usuario = model<IUsuario>("Usuario", UsuarioSchema);

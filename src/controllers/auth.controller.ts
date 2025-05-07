@@ -34,6 +34,7 @@ class AuthController {
         correo: usuario.correo,
         nombre: usuario.nombre,
         estado: usuario.estado,
+        rol: usuario.rol
       };
 
       // Generar el token (expira en 7 días)
