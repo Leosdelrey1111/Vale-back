@@ -28,6 +28,9 @@ class PrestamoRoutes {
     
     // Registrar devolución
     this.router.post("/devolucion", this.controller.registrarDevolucion);
+
+    // routes.ts
+    this.router.put('/usuarios/:usuarioId/multa', this.controller.ajustarMulta);
   }
 
   public getRouter(): express.Router {

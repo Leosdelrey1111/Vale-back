@@ -263,6 +263,45 @@ class PrestamoController {
         .json({ message: "Error al obtener préstamos retrasados", error });
     }
   };
+
+  //prestam o
+  // PrestamoController.ts
+public ajustarMulta = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { usuarioId } = req.params;
+    const { accion, monto, observaciones } = req.body;
+
+    const usuario = await Usuario.findById(usuarioId);
+    if (!usuario) {
+      res.status(404).json({ message: "Usuario no encontrado" });
+      return;
+    }
+
+    switch (accion) {
+      case 'pagar':
+        usuario.multaAcumulada = Math.max(usuario.multaAcumulada - monto, 0);
+        break;
+      case 'ajustar':
+        usuario.multaAcumulada = Math.max(monto, 0);
+        break;
+      default:
+        res.status(400).json({ message: "Acción no válida" });
+        return;
+    }
+
+    await usuario.save();
+
+    res.json({
+      nuevoAdeudo: usuario.multaAcumulada,
+      message: "Multa actualizada correctamente"
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      message: "Error al ajustar la multa", 
+      error: error instanceof Error ? error.message : error 
+    });
+  }
+};
 }
 
 export { PrestamoController };

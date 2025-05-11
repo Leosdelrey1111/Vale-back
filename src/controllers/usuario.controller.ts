@@ -116,6 +116,26 @@ class UsuarioController {
         .json({ message: "Error al obtener préstamos del usuario", error });
     }
   };
+  public clearDebt = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const usuarioId = req.params.id;
+      const usuario = await Usuario.findByIdAndUpdate(
+        usuarioId,
+        { multaAcumulada: 0 },
+        { new: true }
+      );
+      if (!usuario) {
+        res.status(404).json({ message: "Usuario no encontrado" });
+        return;
+      }
+      res.json({ message: "Deuda eliminada", multaAcumulada: usuario.multaAcumulada });
+    } catch (error) {
+      res.status(500).json({ message: "Error al limpiar deuda", error });
+    }
+  };
+
 }
+
+
 
 export { UsuarioController };

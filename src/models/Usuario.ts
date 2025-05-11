@@ -15,8 +15,11 @@ const UsuarioSchema = new Schema<IUsuario>({
     enum: ["activo", "inactivo", "suspendido"],
     default: "activo",
   },
-  
-  multaAcumulada: { type: Number, default: 0 },
+  multaAcumulada: {
+    type: Number,
+    min: [0, "La multa no puede ser negativa"],
+    default: 0,
+  },
   rol: {
     type: String,
     enum: ["lector", "bibliotecario"],

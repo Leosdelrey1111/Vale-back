@@ -17,6 +17,7 @@ class UsuarioRoutes {
     this.router.post("/", this.controller.createUsuario);
     this.router.put("/:id", this.controller.updateUsuario);
     this.router.delete("/:id", this.controller.deleteUsuario);
+    this.router.patch("/usuarios/:id/clear-debt", this.controller.clearDebt);
   }
 
   public getRouter(): express.Router {
